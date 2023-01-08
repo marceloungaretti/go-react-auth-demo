@@ -39,7 +39,7 @@ func (user *User) GetByEmail() *errors.RestErr {
 	defer stmt.Close()
 
 	result := stmt.QueryRow(user.Email)
-	if getErr := result.Scan(&user.ID, &user.FirstName, &user.LastName, &user.Password); getErr != nil {
+	if getErr := result.Scan(&user.ID, &user.FirstName, &user.LastName, &user.Email, &user.Password); getErr != nil {
 		return errors.NewInternalServerError("database error")
 	}
 
