@@ -8,6 +8,7 @@ import (
 var (
 	queryInsertUser     = "INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?);"
 	queryGetUserByEmail = "SELECT id, first_name, last_name, email, password FROM users WHERE email = ?;"
+	queryGetUserById    = "SELECT id, first_name, last_name, email FROM users WHERE id = ?;"
 )
 
 func (user *User) Save() *errors.RestErr {
@@ -42,5 +43,19 @@ func (user *User) GetByEmail() *errors.RestErr {
 		return errors.NewInternalServerError("database error")
 	}
 
+	return nil
+}
+
+func (user *User) GetById() *errors.RestErr {
+	stmt, err := users_db.Client.Prepare(queryGetUserById)
+	if err != nil {
+		return errors.NewInternalServerError("database error")
+	}
+	defer stmt.Close()
+
+	result := stmt.QueryRow(user.ID)
+	if getErr := result.Scan(&user.ID, &user.FirstName, &user.LastName, &user.Email); getErr != nil {
+		return errors.NewInternalServerError("database error")
+	}
 	return nil
 }

@@ -39,3 +39,11 @@ func GetUser(user users.User) (*users.User, *errors.RestErr) {
 	resultWithoutPassword := &users.User{ID: result.ID, FirstName: result.FirstName, LastName: result.LastName, Email: result.Email}
 	return resultWithoutPassword, nil
 }
+
+func GetUserById(userId int64) (*users.User, *errors.RestErr) {
+	result := &users.User{ID: userId}
+	if err := result.GetById(); err != nil {
+		return nil, err
+	}
+	return result, nil
+}
