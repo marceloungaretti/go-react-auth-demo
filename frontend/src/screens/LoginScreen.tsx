@@ -10,7 +10,6 @@ const LoginScreen = () => {
         <Form.Group className="my-3" controlId="email">
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" placeholder="Enter your email" />
-
         </Form.Group>
 
         <Form.Group className="my-3" controlId="password">
