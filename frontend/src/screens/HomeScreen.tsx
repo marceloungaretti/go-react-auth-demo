@@ -2,7 +2,7 @@ import React from 'react'
 
 const HomeScreen = () => {
   return (
-    <div>HomeScreen</div>
+    <h1>Welcome to the Home Page!</h1>
   )
 }
 
